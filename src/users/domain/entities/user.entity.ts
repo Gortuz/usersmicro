@@ -17,13 +17,13 @@ export class User {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ name: 'first_name', length: 100, nullable: true })
+  @Column({ name: 'first_name', length: 100, nullable: false })
   firstName: string;
 
-  @Column({ name: 'last_name', length: 100, nullable: true })
+  @Column({ name: 'last_name', length: 100, nullable: false })
   lastName: string;
 
-  @Column({ default: true })
+  @Column({ name: 'is_active', default: true })
   isActive: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
