@@ -9,6 +9,9 @@ import { DeleteUserHandler } from './application/commands/delete-user/delete-use
 import { GetAllUsersHandler } from './application/queries/get-all-users/get-all-users.handler';
 import { GetUserByIdHandler } from './application/queries/get-user-by-id/get-user-by-id.handler';
 import { UsersController } from './infrastructure/controllers/users.controller';
+import { UserCreatedHandler } from './application/events/user-created.handler';
+import { UserUpdatedHandler } from './application/events/user-updated.handler';
+import { UserDeletedHandler } from './application/events/user-deleted.handler';
 
 export const CommandHandlers = [
   CreateUserHandler,
@@ -19,6 +22,12 @@ export const CommandHandlers = [
 export const QueryHandlers = [
   GetAllUsersHandler,
   GetUserByIdHandler,
+];
+
+export const EventHandlers = [
+  UserCreatedHandler,
+  UserUpdatedHandler,
+  UserDeletedHandler,
 ];
 
 @Module({
@@ -32,6 +41,7 @@ export const QueryHandlers = [
   providers: [
     ...QueryHandlers,
     ...CommandHandlers,
+    ...EventHandlers,
     {
       provide: 'IUserRepository', // Usamos un token para Inversión de Dependencias
       useClass: UserRepository,
