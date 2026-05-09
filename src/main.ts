@@ -25,6 +25,8 @@ async function bootstrap() {
   });
 
   await app.startAllMicroservices();
+  await app.init();
+  // app.listen();
 
   console.log(`🚀 Microservice is listening on Kafka brokers: ${kafkaBrokers}`);
 }
