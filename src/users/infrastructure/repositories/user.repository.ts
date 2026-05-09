@@ -45,7 +45,12 @@ export class UserRepository implements IUserRepository {
    * para replicar los cambios en la DB de lectura.
    */
   async syncProjection(user: User): Promise<void> {
+    console.log('User synced', user);
     await this.readRepo.save(user);
+  }
+
+  async deleteProjection(id: string): Promise<void> {
+    await this.readRepo.delete(id);
   }
 
   async delete(id: string): Promise<void> {
