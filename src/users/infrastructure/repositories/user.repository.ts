@@ -47,4 +47,8 @@ export class UserRepository implements IUserRepository {
   async syncProjection(user: User): Promise<void> {
     await this.readRepo.save(user);
   }
+
+  async delete(id: string): Promise<void> {
+    await this.writeRepo.delete(id);
+  }
 }
