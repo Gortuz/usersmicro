@@ -43,18 +43,18 @@ export class CreateUsersTable1715276400000 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
-                        name: "isActive",
+                        name: "is_active",
                         type: "boolean",
                         default: true,
                     },
                     {
                         name: "created_at",
-                        type: "timestamp",
+                        type: "timestamptz",
                         default: "now()",
                     },
                     {
                         name: "updated_at",
-                        type: "timestamp",
+                        type: "timestamptz",
                         default: "now()",
                     },
                 ],
