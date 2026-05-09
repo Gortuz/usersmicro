@@ -8,6 +8,7 @@ import { UpdateUserHandler } from './application/commands/update-user/update-use
 import { DeleteUserHandler } from './application/commands/delete-user/delete-user.handler';
 import { GetAllUsersHandler } from './application/queries/get-all-users/get-all-users.handler';
 import { GetUserByIdHandler } from './application/queries/get-user-by-id/get-user-by-id.handler';
+import { UsersController } from './infrastructure/controllers/users.controller';
 
 export const CommandHandlers = [
   CreateUserHandler,
@@ -27,14 +28,15 @@ export const QueryHandlers = [
     TypeOrmModule.forFeature([User], 'write_connection'),
     TypeOrmModule.forFeature([User], 'read_connection'),
   ],
+  controllers: [UsersController],
   providers: [
+    ...QueryHandlers,
+    ...CommandHandlers,
     {
       provide: 'IUserRepository', // Usamos un token para Inversión de Dependencias
       useClass: UserRepository,
     },
-    ...CommandHandlers,
-    ...QueryHandlers,
   ],
   exports: ['IUserRepository'],
 })
-export class UsersModule {}
+export class UsersModule { }
