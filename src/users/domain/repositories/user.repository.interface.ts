@@ -7,4 +7,5 @@ export interface IUserRepository {
   delete(id: string): Promise<void>;
   syncProjection(user: User): Promise<void>;
   deleteProjection(id: string): Promise<void>;
+  findByEmail(email: string): Promise<User | null>;
 }
