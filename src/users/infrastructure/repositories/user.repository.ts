@@ -7,11 +7,9 @@ import { IUserRepository } from '../../domain/repositories/user.repository.inter
 @Injectable()
 export class UserRepository implements IUserRepository {
   constructor(
-    // Conexión para Comandos (Escritura)
     @InjectRepository(User, 'write_connection')
     private readonly writeRepo: Repository<User>,
 
-    // Conexión para Consultas y Proyecciones (Lectura)
     @InjectRepository(User, 'read_connection')
     private readonly readRepo: Repository<User>,
   ) {}
@@ -39,11 +37,10 @@ export class UserRepository implements IUserRepository {
     return await this.readRepo.findOneBy({ id });
   }
 
-  /**
-   * PROJECTION SIDE (Sincronización Manual)
-   * Este método se usaría dentro de un Handler de Eventos (Event Handler)
-   * para replicar los cambios en la DB de lectura.
-   */
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.writeRepo.findOneBy({ email });
+  }
+
   async syncProjection(user: User): Promise<void> {
     console.log('User synced', user);
     await this.readRepo.save(user);
