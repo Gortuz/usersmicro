@@ -37,9 +37,9 @@ export class UsersController {
 
   @MessagePattern('user.update')
   async update(@Payload() data: any) {
-    const { id, email, firstName, lastName, password } = data;
+    const { id, email, firstName, lastName, password, isActive } = data;
     return await this.commandBus.execute(
-      new UpdateUserCommand(id, email, firstName, lastName, password),
+      new UpdateUserCommand(id, email, firstName, lastName, password, isActive),
     );
   }
 

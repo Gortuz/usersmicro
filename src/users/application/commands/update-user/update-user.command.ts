@@ -7,5 +7,6 @@ export class UpdateUserCommand implements ICommand {
     public readonly firstName?: string,
     public readonly lastName?: string,
     public readonly password?: string,
+    public readonly isActive?: boolean,
   ) {}
 }

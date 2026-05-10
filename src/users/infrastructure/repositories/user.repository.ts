@@ -29,12 +29,12 @@ export class UserRepository implements IUserRepository {
    */
   async findAll(): Promise<User[]> {
     return await this.readRepo.find({
-      where: { isActive: true }
+      order: { updatedAt: 'DESC' }
     });
   }
 
   async findById(id: string): Promise<User | null> {
-    return await this.readRepo.findOneBy({ id });
+    return await this.writeRepo.findOneBy({ id });
   }
 
   async findByEmail(email: string): Promise<User | null> {

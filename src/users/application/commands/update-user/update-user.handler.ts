@@ -16,7 +16,7 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
   ) { }
 
   async execute(command: UpdateUserCommand) {
-    const { id, email, firstName, lastName, password } = command;
+    const { id, email, firstName, lastName, password, isActive } = command;
 
     this.logger.debug(`📝 Updating user with ID: ${id}`);
 
@@ -38,6 +38,7 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
     if (firstName !== undefined) user.firstName = firstName;
     if (lastName !== undefined) user.lastName = lastName;
     if (password !== undefined) user.password = password; 
+    if (isActive !== undefined) user.isActive = isActive;
 
     const updatedUser = await this.userRepository.save(user);
 
@@ -45,7 +46,8 @@ export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
       updatedUser.id,
       email,
       firstName,
-      lastName
+      lastName,
+      isActive
     ));
 
     this.logger.debug(`✅ User updated successfully: ${updatedUser.id}`);
