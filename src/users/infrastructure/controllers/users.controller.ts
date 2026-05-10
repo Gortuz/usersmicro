@@ -6,13 +6,16 @@ import { UpdateUserCommand } from '../../application/commands/update-user/update
 import { DeleteUserCommand } from '../../application/commands/delete-user/delete-user.command';
 import { GetAllUsersQuery } from '../../application/queries/get-all-users/get-all-users.query';
 import { GetUserByIdQuery } from '../../application/queries/get-user-by-id/get-user-by-id.query';
+import { UseFilters } from '@nestjs/common';
+import { AllExceptionsFilter } from '../../../common/filters/all-exception.filter';
 
 @Controller()
+@UseFilters(AllExceptionsFilter)
 export class UsersController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-  ) {}
+  ) { }
 
   @MessagePattern('user.create')
   async create(@Payload() data: any) {
